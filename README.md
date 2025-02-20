@@ -2,7 +2,7 @@
 
 A webring for Computer Science and Software Engineering students at Toronto Metropolitan University
 
-Idea inspired by [Waterloo's SE Webring](https://github.com/simcard0000/se-webring), [McGill's Webring](https://github.com/leofalvo/mcgillcswebring.org), and ['Carlton's Webring](https://github.com/yufengliu15/cu-webring).
+Idea inspired by [Waterloo's SE Webring](https://github.com/simcard0000/se-webring), [McGill's Webring](https://github.com/leofalvo/mcgillcswebring.org), and [Carlton's Webring](https://github.com/yufengliu15/cu-webring).
 
 [What's a webring?](#what-is-a-webring) / [How do I join?](#how-do-i-join)
 
