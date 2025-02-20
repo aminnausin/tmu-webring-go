@@ -21,16 +21,17 @@ jobs:
 
             - name: Install Packages and Build Application
               run: |
+                  cd web
                   npm ci
                   npm run build
             - name: Enable Routing
               run: |
-                  cp ./dist/index.html ./dist/404.html
+                  cp ./web/dist/index.html ./web/dist/404.html
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: './dist'
+                  path: "./web/dist"
 
     deploy:
         name: Deploy Application

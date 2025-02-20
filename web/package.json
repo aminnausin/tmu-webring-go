@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "type": "module",
-    "homepage": "https://aminnausin.github.io/tmu-webring/",
+    "homepage": "https://aminnausin.github.io/tmu-webring-go/",
     "scripts": {
         "dev": "vite",
         "build": "run-p type-check \"build-only {@}\" --",
