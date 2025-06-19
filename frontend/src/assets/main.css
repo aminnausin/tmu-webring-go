@@ -1,10 +1,16 @@
-/* === Google Fonts (optional but fine to inline) === */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Delius&family=Montserrat+Alternates:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
 
-/* === Tailwind layers === */
 @import 'tailwindcss';
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/aspect-ratio";
 
-/* === Theme (CSS variables) === */
+@custom-variant hocus (&:hover, &:focus);
+@custom-variant default (html :where(&));
+@custom-variant scrollbar (&::-webkit-scrollbar);
+@custom-variant scrollbar-track (&::-webkit-scrollbar-track);
+@custom-variant scrollbar-thumb (&::-webkit-scrollbar-thumb);
+
+/* === CSS variables === */
 @theme {
     --font-dm-sans: DM-Sans, sans-serif;
 
@@ -43,10 +49,6 @@
     --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* === Custom Variant (Dark Mode) === */
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* === Font-face definition (optional if you rely on Google Fonts only) === */
 @font-face {
     font-family: 'DM Sans';
     font-style: normal;
@@ -57,7 +59,6 @@
     display: swap;
 }
 
-/* === Base overrides (you can scope or simplify this if needed) === */
 body {
     transition:
         color 0.5s,
@@ -123,6 +124,16 @@ body {
 }
 
 @layer utilities {
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type='number'] {
+        appearance: textfield;
+    }
+
     .scrollbar-hide::-webkit-scrollbar {
         display: none;
     }
