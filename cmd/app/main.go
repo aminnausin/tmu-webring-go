@@ -7,13 +7,16 @@ import (
 	"tmu-webring-go/internal/account"
 	"tmu-webring-go/internal/middleware"
 	"tmu-webring-go/internal/submission"
-	"tmu-webring-go/internal/website"
+	"tmu-webring-go/internal/web"
 )
 
 func main() {
 	router := http.NewServeMux()
 
 	authRouter := http.NewServeMux()
+
+	// router.HandleFunc("GET /", nil)
+
 	/*
 	 * GET: return account information and settings
 	 * PATCH: update account information and settings
@@ -28,8 +31,8 @@ func main() {
 	/*
 	 * GET: all approved websites
 	**/
-	router.HandleFunc("GET /websites", website.GetWebsites)
-
+	// router.HandleFunc("GET /websites", website.GetWebsites)
+	web.RegisterStaticRoutes(router)
 	/*
 	 * GET: get submissions
 	 * PATCH: approve submission
@@ -53,7 +56,7 @@ func main() {
 		Addr:    ":8021",
 		Handler: stack(router),
 	}
-	fmt.Println("Starting GO API service...")
+	fmt.Println("Starting GO API service on port 8021...")
 	fmt.Println(`
  ______     ______        ______     ______   __    
 /\  ___\   /\  __ \      /\  __ \   /\  == \ /\ \   

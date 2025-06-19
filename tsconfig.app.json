@@ -1,0 +1,31 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "frontend/src/**/*",
+    "frontend/src/**/*.vue"
+  ],
+  "exclude": [
+    "frontend/src/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "frontend/src/*"
+      ]
+    },
+    "types": [
+      "vite/client",
+      "unplugin-icons/types/vue",
+      "pinia"
+    ]
+  }
+}

@@ -27,3 +27,17 @@ To add your site, you MUST be a current student or alumni at [Toronto Metropolit
 
 3. Optional, but **please mention the webring** somewhere on your website. Preferably, have it link back to the main site.
 4. Create a [pull request](https://github.com/aminnausin/tmu-webring/pulls) and fill in the details.
+
+## How to run the source code?
+
+```bash
+# Run the server
+
+go run ./cmd/app/main.go
+
+# In another session, run the frontend
+
+cd web
+npm run build
+npm run preview
+```
