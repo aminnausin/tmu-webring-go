@@ -1,0 +1,24 @@
+{{define "base"}}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <style>
+            body {
+                font-family: 'DM Sans', sans-serif;
+                background: #f9f9f9;
+                color: #333;
+            }
+            .button {
+                background: #3ab7bf;
+                padding: 10px 20px;
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="padding: 20px">{{template "content" .}}</div>
+    </body>
+</html>
+{{end}}

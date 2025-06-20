@@ -136,14 +136,14 @@ watch(() => graph.value, generateGraph);
 <template>
     <LayoutBase>
         <section class="relative border-2 border-neutral-600/30 rounded-2xl w-full overflow-clip flex flex-1">
-            <div ref="graph" class="w-full sm:flex-1 [&>*]:!h-full">
+            <div ref="graph" class="w-full sm:flex-1">
                 <!-- Vis Network Graph -->
                 The graph did not work...
             </div>
             <div :class="`group absolute bottom-0 left-0 text-sm w-full sm:w-[320px]`">
                 <span
                     :class="[
-                        `relative grid xs:grid-cols-3 gap-2 sm:rounded-tr-lg border-t sm:border-r border-neutral-600/70 backdrop-blur-xl scrollbar-minimal scrollbar-hidden overflow-clip transition-all duration-500`,
+                        `relative grid xs:grid-cols-3 gap-2 sm:rounded-tr-lg border-t sm:border-r border-neutral-600/70 backdrop-blur-xl scrollbar-minimal overflow-clip transition-all duration-500`,
                         { 'px-4 py-2 w-full sm:pe-12 h-[14vh] sm:h-[10vh] overflow-y-auto': legendOpen, 'w-8 h-8 rounded-tr-lg border-r': !legendOpen },
                     ]"
                 >

@@ -1,17 +1,42 @@
 package main
 
 import (
-	"fmt"
+	"database/sql"
 	"log"
 	"net/http"
-	"tmu-webring-go/internal/account"
+	"tmu-webring-go/internal/env"
+	"tmu-webring-go/internal/mailer"
 	"tmu-webring-go/internal/middleware"
+	"tmu-webring-go/internal/storage"
 	"tmu-webring-go/internal/submission"
 	"tmu-webring-go/internal/web"
+
+	_ "modernc.org/sqlite"
+	// _ "github.com/mattn/go-sqlite3" // <-- THIS is required
 )
 
 func main() {
+	env.ReadEnvFile()
+
+	db, err := sql.Open("sqlite", "file:test.db?cache=shared&mode=rwc")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer db.Close()
+
+	brevoMailer, err := mailer.NewBrevoClient(env.GetStringEnv("MAIL_USERNAME", ""), env.GetStringEnv("MAIL_PASSWORD", ""), "no-reply@nausin.me")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	storage := storage.NewStorage(db)
+
+	// userService := user.NewUserService(storage, brevoMailer)
+	app := &application{storage: storage, mailer: brevoMailer}
+
 	router := http.NewServeMux()
+	router.HandleFunc("POST /api/user", app.registerUserHandler)
 
 	authRouter := http.NewServeMux()
 
@@ -23,10 +48,10 @@ func main() {
 	 * POST: create account
 	 * DELETE: delete account
 	**/
-	router.HandleFunc("POST /account", account.CreateAccount)
-	authRouter.HandleFunc("GET /account/{username}", account.GetAccount)
-	authRouter.HandleFunc("PATCH /account/{username}", account.UpdateAccount)
-	authRouter.HandleFunc("DELETE /account/{username}", account.DeleteAccount)
+	// router.HandleFunc("POST /account", user.CreateAccount)
+	// authRouter.HandleFunc("GET /account/{username}", user.GetAccount)
+	// authRouter.HandleFunc("PATCH /account/{username}", user.UpdateAccount)
+	// authRouter.HandleFunc("DELETE /account/{username}", user.DeleteAccount)
 
 	/*
 	 * GET: all approved websites
@@ -52,17 +77,5 @@ func main() {
 		middleware.Logging,
 	)
 
-	server := http.Server{
-		Addr:    ":8021",
-		Handler: stack(router),
-	}
-	fmt.Println("Starting GO API service on port 8021...")
-	fmt.Println(`
- ______     ______        ______     ______   __    
-/\  ___\   /\  __ \      /\  __ \   /\  == \ /\ \   
-\ \ \__ \  \ \ \/\ \     \ \  __ \  \ \  _-/ \ \ \  
- \ \_____\  \ \_____\     \ \_\ \_\  \ \_\    \ \_\ 
-  \/_____/   \/_____/      \/_/\/_/   \/_/     \/_/ `)
-
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(app.run(stack(router)))
 }

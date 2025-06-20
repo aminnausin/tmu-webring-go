@@ -1,9 +1,18 @@
-package api
+package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
+	"tmu-webring-go/internal/mailer"
+	"tmu-webring-go/internal/storage"
 )
+
+type application struct {
+	storage storage.Storage
+	mailer  mailer.Client
+}
 
 type CreateAccountParams struct {
 	Username string
@@ -61,3 +70,23 @@ var (
 		writeError(w, "Unauthorized.", http.StatusUnauthorized)
 	}
 )
+
+func (app *application) run(mux http.Handler) error {
+	// Docs
+	http := http.Server{
+		Addr:    ":8021",
+		Handler: mux,
+	}
+	fmt.Println("Starting GO API service on port 8021...")
+	fmt.Println(`
+ ______     ______        ______     ______   __    
+/\  ___\   /\  __ \      /\  __ \   /\  == \ /\ \   
+\ \ \__ \  \ \ \/\ \     \ \  __ \  \ \  _-/ \ \ \  
+ \ \_____\  \ \_____\     \ \_\ \_\  \ \_\    \ \_\ 
+  \/_____/   \/_____/      \/_/\/_/   \/_/     \/_/ `)
+
+	if err := http.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
+	return nil
+}

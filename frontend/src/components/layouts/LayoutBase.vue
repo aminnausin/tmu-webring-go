@@ -8,7 +8,7 @@ const modal = useModalStore();
 </script>
 
 <template>
-    <main class="relative gap-4 flex flex-col items-center min-h-screen overflow-y-auto p-3 md:p-6 md:pb-16">
+    <main class="relative gap-4 flex flex-col items-center min-h-screen p-3 md:p-6 md:pb-16">
         <Navbar />
         <slot></slot>
         <!-- <a
